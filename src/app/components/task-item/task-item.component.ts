@@ -9,7 +9,7 @@ import {TaskModel} from "../../core/models/task.model";
 })
 export class TaskItemComponent implements OnInit {
   @Input()
-  item: TaskModel;
+  task: TaskModel;
   @Output()
   completeTask = new EventEmitter<string>();
 
@@ -17,7 +17,7 @@ export class TaskItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  completeTaskItem(id: string) {
+  completeTaskItem(id: string): void {
     this.completeTask.emit(id);
   }
 }

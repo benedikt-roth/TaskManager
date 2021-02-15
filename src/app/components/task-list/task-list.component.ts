@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {TaskService} from "../../core/services/task.service";
 import {TaskModel} from "../../core/models/task.model";
 import {Observable} from "rxjs";
@@ -8,20 +8,16 @@ import {Observable} from "rxjs";
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
-export class TaskListComponent implements OnInit {
-  taskList$: Observable<TaskModel[]>;
+export class TaskListComponent {
+  tasks$: Observable<TaskModel[]> = this.taskService.tasks$;
 
   constructor(private taskService: TaskService) { }
-
-  ngOnInit(): void {
-    this.taskList$ = this.taskService.getTasks();
-  }
 
   handleTaskSubmit(task: any): void {
     this.taskService.addTask(task);
   }
 
-  handleTaskComplete(id: string) {
+  handleTaskComplete(id: string): void {
     this.taskService.completeTask(id);
   }
 }

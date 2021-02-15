@@ -1,14 +1,16 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SubmitTaskModel} from '../../core/models/task.model';
 
 @Component({
   selector: 'task-input-item',
   templateUrl: './task-input-item.component.html',
   styleUrls: ['./task-input-item.component.scss']
 })
+
 export class TaskInputItemComponent implements OnInit {
   @Output()
-  submitTask = new EventEmitter<any>();
+  submitTask = new EventEmitter<SubmitTaskModel>();
 
   taskForm: FormGroup;
 
@@ -22,16 +24,19 @@ export class TaskInputItemComponent implements OnInit {
     })
   }
 
-  createTask() {
+  createTask(): void {
     const { title, expireDate, expireTime } = this.taskForm.value;
-    const date = new Date(expireDate);
-    let _expireTime = expireTime || '23:59'
-    const [hours, minutes] = _expireTime.split(':');
-    date.setHours(hours, minutes);
+    let expDate;
+    if (expireDate) {
+      expDate = new Date(expireDate);
+      let expTime = expireTime || '23:59:59'
+      const [hours, minutes] = expTime.split(':');
+      expDate.setHours(hours, minutes);
+    }
 
     this.submitTask.emit({
         title,
-        expireDate: date
+        expireDate: expDate || null
     })
     this.taskForm.reset();
   }

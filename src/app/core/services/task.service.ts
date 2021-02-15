@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {TaskModel} from "../models/task.model";
 import * as uuid from 'uuid';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {isDateExpired} from '../utils'
 const mockTaskItems: TaskModel[] =
   [
@@ -30,36 +30,32 @@ const mockTaskItems: TaskModel[] =
 
 @Injectable()
 export class TaskService {
-  private _taskItems$ = new BehaviorSubject<TaskModel[]>(mockTaskItems);
+  private _tasks$ = new BehaviorSubject<TaskModel[]>(mockTaskItems);
 
-  taskItems = this._taskItems$.asObservable();
+  tasks$ = this._tasks$.asObservable();
 
   constructor() {}
-
-  getTasks(): Observable<TaskModel[]> {
-    return this.taskItems;
-  }
 
   addTask(body): void {
     body.complete = false;
     body.expire = isDateExpired(body.expireDate)
     body.uuid = uuid.v4();
 
-    const taskItems = this._taskItems$.getValue();
-    taskItems.push(body);
+    const tasks = this._tasks$.getValue();
+    tasks.push(body);
 
-    this._taskItems$.next(taskItems);
+    this._tasks$.next(tasks);
   }
 
-  completeTask(id: string) {
-    const taskItems = this._taskItems$.getValue();
-    const filteredTaskItems = taskItems.map(task => {
+  completeTask(id: string): void {
+    const tasks = this._tasks$.getValue();
+    const filteredTaskItems = tasks.map(task => {
       if (task.uuid === id) {
         task.complete = true
       }
       return task;
     });
 
-    this._taskItems$.next(filteredTaskItems);
+    this._tasks$.next(filteredTaskItems);
   }
 }

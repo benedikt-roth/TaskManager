@@ -1,4 +1,4 @@
-function isDateExpired(date): boolean {
+export function isDateExpired(date): boolean {
   if (!date) {
     return false;
   }
@@ -7,8 +7,4 @@ function isDateExpired(date): boolean {
   endDate.setHours(23,59,59);
 
   return new Date().getTime() > new Date(date).getTime();
-}
-
-export {
-  isDateExpired
 }

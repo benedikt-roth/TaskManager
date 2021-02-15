@@ -1,15 +1,15 @@
 <div class="task-item">
-  <div class="title">Task: {{ item.title }}</div>
-  <div *ngIf="item.expireDate" class="expire-date">
-    Expired Date - {{ item.expireDate | date : 'longDate' }}
+  <div class="title">Task: {{ task.title }}</div>
+  <div *ngIf="task.expireDate" class="expire-date">
+    Expired Date - {{ task.expireDate | date : 'longDate' }}
   </div>
   <div class="status">
-    <span *ngIf="item.complete" class="bold-item">Completed</span>
-    <span *ngIf="!item.complete && item.expire" class="bold-item">Expired</span>
+    <span *ngIf="task.complete" class="bold-item">Completed</span>
+    <span *ngIf="!task.complete && task.expire" class="bold-item">Expired</span>
     <button
-        *ngIf="!item.complete && !item.expire"
+        *ngIf="!task.complete && !task.expire"
         class="btn"
-        (click)="completeTaskItem(item.uuid)"
+        (click)="completeTaskItem(task.uuid)"
     >
       Complete Task
     </button>

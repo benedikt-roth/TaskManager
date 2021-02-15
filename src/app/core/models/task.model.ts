@@ -5,3 +5,8 @@ export interface TaskModel {
   expire: boolean,
   uuid: string,
 }
+
+export interface SubmitTaskModel {
+  title: string,
+  expireDate: string | null
+}

@@ -3,10 +3,10 @@
         (submitTask)="handleTaskSubmit($event)">
     </task-input-item>
     <ul>
-      <li *ngFor="let taskItem of taskList$ | async">
+      <li *ngFor="let task of tasks$ | async">
         <task-item
-          [item]="taskItem"
-          (completeTask)="handleTaskComplete($event)"
+           [task]="task"
+           (completeTask)="handleTaskComplete($event)"
         ></task-item>
       </li>
     </ul>
