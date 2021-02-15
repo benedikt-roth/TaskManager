@@ -17,14 +17,22 @@ export class TaskInputItemComponent implements OnInit {
   ngOnInit(): void {
     this.taskForm = this.fb.group({
         title: ['', Validators.required],
-        expireDate: ['']
+        expireDate: [''],
+        expireTime: ['']
     })
   }
 
   createTask() {
-    const { title, expireDate } = this.taskForm.value;
+    const { title, expireDate, expireTime } = this.taskForm.value;
+    const date = new Date(expireDate);
+    let _expireTime = expireTime || '23:59'
+    const [hours, minutes] = _expireTime.split(':');
+    date.setHours(hours, minutes);
 
-    this.submitTask.emit({ title, expireDate: expireDate || null })
+    this.submitTask.emit({
+        title,
+        expireDate: date
+    })
     this.taskForm.reset();
   }
 }

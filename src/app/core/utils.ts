@@ -3,6 +3,9 @@ function isDateExpired(date): boolean {
     return false;
   }
 
+  const endDate = new Date();
+  endDate.setHours(23,59,59);
+
   return new Date().getTime() > new Date(date).getTime();
 }
 
