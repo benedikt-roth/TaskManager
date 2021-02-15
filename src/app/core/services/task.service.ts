@@ -32,12 +32,12 @@ const mockTaskItems: TaskModel[] =
 export class TaskService {
   private _taskItems$ = new BehaviorSubject<TaskModel[]>(mockTaskItems);
 
-  taskItem = this._taskItems$.asObservable();
+  taskItems = this._taskItems$.asObservable();
 
   constructor() {}
 
   getTasks(): Observable<TaskModel[]> {
-    return this.taskItem;
+    return this.taskItems;
   }
 
   addTask(body): void {
@@ -47,6 +47,7 @@ export class TaskService {
 
     const taskItems = this._taskItems$.getValue();
     taskItems.push(body);
+
     this._taskItems$.next(taskItems);
   }
 
@@ -58,6 +59,7 @@ export class TaskService {
       }
       return task;
     });
+
     this._taskItems$.next(filteredTaskItems);
   }
 }
