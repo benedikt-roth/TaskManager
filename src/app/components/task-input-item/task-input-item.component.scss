@@ -1,0 +1,17 @@
+.task-form {
+  display: flex;
+  align-items: center;
+
+  label {
+    margin-right: 10px;
+  }
+}
+
+.item-input {
+  padding: 4px 10px 4px;
+  font-size: 16px;
+  line-height: 20px;
+  border: solid 1px #dddddd;
+  border-radius: 5px;
+  margin-right: 20px;
+}

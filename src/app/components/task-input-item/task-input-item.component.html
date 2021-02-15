@@ -1,0 +1,18 @@
+<form [formGroup]="taskForm" class="task-form">
+  <label for="title">Task</label>
+  <input class="item-input" id="title" formControlName="title">
+
+  <label for="expireDate">Expire Date</label>
+  <input class="item-input" id="expireDate" type="date" formControlName="expireDate">
+
+  <button
+    class="btn"
+    [ngClass]="{'btn-invalid': taskForm.invalid}"
+    [disabled]="taskForm.invalid"
+    (click)="createTask()"
+  >
+    Create Task
+  </button>
+</form>
+
+

@@ -1,0 +1,13 @@
+<div class="task-list">
+    <task-input-item
+        (submitTask)="handleTaskSubmit($event)">
+    </task-input-item>
+    <ul>
+      <li *ngFor="let taskItem of taskList$ | async">
+        <task-item
+          [item]="taskItem"
+          (completeTask)="handleTaskComplete($event)"
+        ></task-item>
+      </li>
+    </ul>
+</div>
